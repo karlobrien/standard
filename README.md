@@ -15,12 +15,28 @@ Shared engineering standards for .NET repositories.
 
 ## Adding to a repo
 
+**Option 1 — one-liner:**
+
 ```bash
-git submodule add <url> standard
-standard/setup.sh          # symlinks .editorconfig to repo root
+curl -s https://raw.githubusercontent.com/karlobrien/standard/main/add-to-repo.sh | bash
 ```
 
-Then add a root `CLAUDE.md` in the consuming repo:
+**Option 2 — manually:**
+
+```bash
+git submodule add https://github.com/karlobrien/standard standard
+standard/setup.sh
+echo '@standard/CLAUDE.md' > CLAUDE.md
+```
+
+Then commit:
+
+```bash
+git add .gitmodules standard .editorconfig CLAUDE.md
+git commit -m "chore: add standard submodule"
+```
+
+Add repo-specific rules below the import in `CLAUDE.md`:
 
 ```markdown
 @standard/CLAUDE.md
@@ -32,4 +48,5 @@ Then add a root `CLAUDE.md` in the consuming repo:
 
 ```bash
 git submodule update --remote standard
+git commit -m "chore: update standard submodule"
 ```
